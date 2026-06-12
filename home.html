@@ -334,40 +334,71 @@
     #skills { padding: 100px 24px; background: var(--bg); }
     .skills-grid {
       max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
     }
     .skill-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 20px; padding: 32px;
+      border-radius: 20px;
+      padding: 28px 24px;
+      transition: transform .25s, box-shadow .25s;
     }
-    .skill-card h3 {
-      font-family: 'Syne', sans-serif; font-weight: 700;
-      font-size: 1rem; margin-bottom: 28px;
-      display: flex; align-items: center; gap: 10px;
+    .skill-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.08);
     }
-    .skill-card h3 i { color: var(--accent); }
-    .skill-row { margin-bottom: 22px; }
-    .skill-row:last-child { margin-bottom: 0; }
-    .skill-label {
-      display: flex; justify-content: space-between;
-      font-size: .875rem; margin-bottom: 8px; font-weight: 500;
+    .skill-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--card-border);
     }
-    .skill-label span:last-child { color: var(--accent); font-weight: 600; }
-    .skill-track {
-      height: 6px; border-radius: 3px;
-      background: var(--skill-track); overflow: hidden;
+    .skill-card-header .skill-icon {
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      flex-shrink: 0;
     }
-    .skill-fill {
-      height: 100%; border-radius: 3px;
+    .skill-card-header h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      line-height: 1.3;
+    }
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tag-bg);
+      border-radius: 100px;
+      padding: 5px 12px 5px 8px;
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--tag-text);
+      transition: all .25s ease;
+      cursor: default;
+    }
+    .skill-item i {
+      font-size: .95rem;
+      transition: color .25s ease;
+    }
+    .skill-item:hover {
       background: var(--grad);
-      width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1);
+      color: #fff;
+      transform: translateY(-2px);
     }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    .tag {
-      background: var(--tag-bg); color: var(--tag-text);
-      border-radius: 100px; padding: 5px 14px;
-      font-size: .8rem; font-weight: 500;
+    .skill-item:hover i {
+      color: #fff !important;
     }
 
     /* ── TECH MARQUEE ── */
@@ -435,6 +466,64 @@
       transition: gap .2s;
     }
     .project-link:hover { gap: 10px; }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 100px;
+      padding: 5px 14px 5px 10px;
+      font-size: .8rem;
+      font-weight: 500;
+      transition: all .25s ease;
+    }
+    .tag i, .tag [class*="devicon-"] {
+      font-size: .85rem;
+    }
+    .tag:hover {
+      background: var(--grad);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .tag:hover i, .tag:hover [class*="devicon-"] {
+      color: #fff !important;
+    }
+
+    /* ── PROJECT FILTER ── */
+    .project-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 100px;
+      border: 1.5px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    .filter-btn.active {
+      background: var(--grad);
+      border-color: transparent;
+      color: #fff;
+    }
 
     /* ── CONTACT ── */
     #contact { padding: 100px 24px; background: var(--bg2); }
@@ -528,6 +617,9 @@
     footer p { font-size: .82rem; color: var(--footer-text); }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 768px) {
       nav { display: none; }
       .hamburger { display: flex; }
@@ -706,47 +798,132 @@ proposés. </p>
   <div class="container">
     <h2 class="section-title reveal"><span class="grad-text">Mes compétences</span></h2>
     <div class="skills-grid">
+      <!-- Langages de programmation -->
       <div class="skill-card reveal">
-        <h3><i class="fas fa-code"></i> Compétences techniques</h3>
-        <div class="skill-row">
-          <div class="skill-label"><span>Développement Web</span><span>90%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(42,110,245,.12);color:#2a6ef5"><i class="fas fa-code"></i></div>
+          <h3>Langages de programmation</h3>
         </div>
-        <div class="skill-row">
-          <div class="skill-label"><span>Langages de programmation</span><span>85%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
-        </div>
-        <div class="skill-row">
-          <div class="skill-label"><span>Frameworks</span><span>80%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
-        </div>
-        <div class="skill-row">
-          <div class="skill-label"><span>Bases de données</span><span>75%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
+        <div class="skill-items">
+          <span class="skill-item"><i class="devicon-c-plain colored"></i>C</span>
+          <span class="skill-item"><i class="devicon-cplusplus-plain colored"></i>C++</span>
+          <span class="skill-item"><i class="devicon-kotlin-plain colored"></i>Kotlin</span>
+          <span class="skill-item"><i class="devicon-dart-plain colored"></i>Dart</span>
+          <span class="skill-item"><i class="fab fa-python" style="color:#3776ab"></i>Python</span>
+          <span class="skill-item"><i class="fab fa-java" style="color:#e11d48"></i>Java</span>
+          <span class="skill-item"><i class="fab fa-php" style="color:#777bb4"></i>PHP</span>
+          <span class="skill-item"><i class="fab fa-node-js" style="color:#339933"></i>Node.js</span>
         </div>
       </div>
-
+      <!-- Frameworks Frontend -->
       <div class="skill-card reveal">
-        <h3><i class="fas fa-language"></i> Langues &amp; Qualités</h3>
-        <div class="skill-row">
-          <div class="skill-label"><span>Arabe</span><span>Langue maternelle</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="100"></div></div>
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(124,58,237,.12);color:#7c3aed"><i class="fas fa-laptop-code"></i></div>
+          <h3>Frameworks Frontend</h3>
         </div>
-        <div class="skill-row">
-          <div class="skill-label"><span>Français</span><span>Courant</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
+        <div class="skill-items">
+          <span class="skill-item"><i class="fab fa-js" style="color:#f7df1e"></i>JavaScript</span>
+          <span class="skill-item"><i class="devicon-typescript-plain colored"></i>TypeScript</span>
+          <span class="skill-item"><i class="fab fa-react" style="color:#61dafb"></i>React</span>
+          <span class="skill-item"><i class="fab fa-angular" style="color:#dd0031"></i>Angular</span>
+          <span class="skill-item"><i class="fab fa-html5" style="color:#e34f26"></i>HTML5</span>
+          <span class="skill-item"><i class="fab fa-css3-alt" style="color:#264de4"></i>CSS3</span>
+          <span class="skill-item"><i class="devicon-bootstrap-plain colored"></i>Bootstrap</span>
         </div>
-        <div class="skill-row">
-          <div class="skill-label"><span>Anglais</span><span>Intermédiaire</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="55"></div></div>
+      </div>
+      <!-- Frameworks Backend -->
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(14,165,233,.12);color:#0ea5e9"><i class="fas fa-server"></i></div>
+          <h3>Frameworks Backend</h3>
         </div>
-        <h3 style="font-size:.9rem;margin-top:24px;margin-bottom:12px;font-weight:600">Qualités personnelles</h3>
-        <div class="tags">
-          <span class="tag">Rigueur</span>
-          <span class="tag">Fiabilité</span>
-          <span class="tag">Ponctualité</span>
-          <span class="tag">Esprit d'équipe</span>
-          <span class="tag">Adaptabilité</span>
+        <div class="skill-items">
+          <span class="skill-item"><i class="fab fa-node-js" style="color:#339933"></i>Node.js</span>
+          <span class="skill-item"><i class="devicon-django-plain colored"></i>Django</span>
+          <span class="skill-item"><i class="devicon-spring-plain colored"></i>Spring Boot</span>
+          <span class="skill-item"><i class="devicon-symfony-original colored"></i>Symfony</span>
+          <span class="skill-item"><i class="devicon-express-original colored"></i>Express.js</span>
+        </div>
+      </div>
+      <!-- Outils DevOps -->
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(245,158,11,.12);color:#f59e0b"><i class="fas fa-infinity"></i></div>
+          <h3>Outils DevOps</h3>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item"><i class="fab fa-docker" style="color:#2496ed"></i>Docker</span>
+          <span class="skill-item"><i class="devicon-kubernetes-plain colored"></i>Kubernetes</span>
+          <span class="skill-item"><i class="devicon-jenkins-line colored"></i>Jenkins</span>
+          <span class="skill-item"><i class="fab fa-git-alt" style="color:#f1502f"></i>Git</span>
+          <span class="skill-item"><i class="fab fa-github" style="color:#6e5494"></i>GitHub</span>
+        </div>
+      </div>
+      <!-- LLM & Machine Learning -->
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(236,72,153,.12);color:#ec4899"><i class="fas fa-brain"></i></div>
+          <h3>LLM &amp; Machine Learning</h3>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item"><i class="fas fa-robot" style="color:#ec4899"></i>Ollama</span>
+          <span class="skill-item"><i class="devicon-pandas-original colored"></i>Pandas</span>
+          <span class="skill-item"><i class="devicon-numpy-original colored"></i>NumPy</span>
+          <span class="skill-item"><i class="devicon-scikitlearn-plain colored"></i>scikit-learn</span>
+        </div>
+      </div>
+      <!-- Big Data -->
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(16,185,129,.12);color:#10b981"><i class="fas fa-chart-bar"></i></div>
+          <h3>Big Data</h3>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item"><i class="devicon-apachespark-plain-wordmark colored"></i>Apache Spark</span>
+          <span class="skill-item"><i class="devicon-apachekafka-original colored"></i>Apache Kafka</span>
+          <span class="skill-item"><i class="devicon-hadoop-original colored"></i>Apache Hadoop</span>
+          <span class="skill-item"><i class="devicon-apacheairflow-original colored"></i>Apache Airflow</span>
+          <span class="skill-item"><i class="fas fa-project-diagram" style="color:#10b981"></i>MapReduce</span>
+          <span class="skill-item"><i class="fas fa-cubes" style="color:#10b981"></i>Zookeeper</span>
+          <span class="skill-item"><i class="fas fa-tasks" style="color:#10b981"></i>YARN</span>
+        </div>
+      </div>
+      <!-- Base de données -->
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(8,145,178,.12);color:#0891b2"><i class="fas fa-database"></i></div>
+          <h3>Base de données</h3>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item"><i class="devicon-mongodb-plain colored"></i>MongoDB</span>
+          <span class="skill-item"><i class="devicon-redis-plain colored"></i>Redis</span>
+          <span class="skill-item"><i class="devicon-postgresql-plain colored"></i>PostgreSQL</span>
+          <span class="skill-item"><i class="devicon-mysql-plain colored"></i>MySQL</span>
+          <span class="skill-item"><i class="fas fa-database" style="color:#c74634"></i>OracleDB</span>
+        </div>
+      </div>
+      <!-- Développement Mobile -->
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(249,115,22,.12);color:#f97316"><i class="fas fa-mobile-alt"></i></div>
+          <h3>Développement Mobile</h3>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item"><i class="devicon-kotlin-plain colored"></i>Kotlin</span>
+          <span class="skill-item"><i class="devicon-flutter-plain colored"></i>Flutter</span>
+          <span class="skill-item"><i class="fab fa-react" style="color:#61dafb"></i>React Native</span>
+        </div>
+      </div>
+      <!-- Architecture & Conception -->
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-icon" style="background:rgba(99,102,241,.12);color:#6366f1"><i class="fas fa-sitemap"></i></div>
+          <h3>Architecture &amp; Conception</h3>
+        </div>
+        <div class="skill-items">
+          <span class="skill-item"><i class="fas fa-plug" style="color:#6366f1"></i>REST API</span>
+          <span class="skill-item"><i class="fas fa-diagram-project" style="color:#6366f1"></i>UML</span>
+          <span class="skill-item"><i class="fas fa-cubes" style="color:#6366f1"></i>Design Patterns</span>
         </div>
       </div>
     </div>
@@ -754,21 +931,31 @@ proposés. </p>
 </section>
 
 <!-- ── TECH MARQUEE ── -->
-<section class="marquee-section">
+<!-- <section class="marquee-section">
   <h2 class="section-title reveal"><span class="grad-text">Technologies maîtrisées</span></h2>
   <div class="marquee-track">
-    <div class="marquee-inner" id="marqueeInner">
+    <div class="marquee-inner" id="marqueeInner"> -->
       <!-- filled by JS -->
-    </div>
+    <!-- </div>
   </div>
-</section>
+</section> -->
 
 <!-- ── PROJECTS ── -->
 <section id="projects">
   <div class="container">
     <h2 class="section-title reveal"><span class="grad-text">Mes projets</span></h2>
+    <div class="project-filters reveal">
+      <button class="filter-btn active" data-filter="all">Tous</button>
+      <button class="filter-btn" data-filter="devops">DevOps</button>
+      <button class="filter-btn" data-filter="fullstack">Dev Full Stack</button>
+      <button class="filter-btn" data-filter="mobile">Dev Mobile</button>
+      <button class="filter-btn" data-filter="bigdata">Big Data</button>
+      <button class="filter-btn" data-filter="aiml">AI &amp; ML</button>
+      <!-- <button class="filter-btn" data-filter="iot">IoT</button> -->
+      <button class="filter-btn" data-filter="cybersec">Cybersécurité</button>
+    </div>
     <div class="projects-grid">
-        <div class="project-card reveal">
+        <div class="project-card reveal" data-category="devops">
             <div class="project-thumb">
                 <img src="./assets/images/rentChain.png" alt="">
             </div>
@@ -776,54 +963,176 @@ proposés. </p>
             <h3>Plateforme Immobilière Décentralisée | DevOps & CI/CD </h3>
             <p>Mise en place de l’infrastructure DevOps pour une application immobilière basée sur une architecture microservices. Implémentation d’un pipeline CI/CD avec Jenkins, conteneurisation des services avec Docker et orchestration via Kubernetes, incluant la gestion des services stateful (PostgreSQL, RabbitMQ) et la configuration des ressources Kubernetes.</p>
             <div class="tags" style="margin-bottom:16px">
-                <span class="tag">Docker</span>
-                <span class="tag">Kubernetes</span>
-                <span class="tag">Jenkins</span>
-                <span class="tag">Spring boot</span>
-                <span class="tag">React</span>
-                <span class="tag">AWS</span>
-                <span class="tag">Block-chain</span>
-                <span class="tag">Rabbit-MQ</span>
-                <span class="tag">PostgreSQL</span>
+                <span class="tag"><i class="fab fa-docker" style="color:#2496ed"></i>Docker</span>
+                <span class="tag"><i class="devicon-kubernetes-plain colored"></i>Kubernetes</span>
+                <span class="tag"><i class="devicon-jenkins-line colored"></i>Jenkins</span>
+                <span class="tag"><i class="devicon-spring-plain colored"></i>Spring Boot</span>
+                <span class="tag"><i class="fab fa-react" style="color:#61dafb"></i>React</span>
+                <span class="tag"><i class="fab fa-aws" style="color:#ff9900"></i>AWS</span>
+                <span class="tag"><i class="fas fa-link" style="color:#6366f1"></i>Block-chain</span>
+                <span class="tag"><i class="fas fa-rabbit" style="color:#ff6600"></i>Rabbit-MQ</span>
+                <span class="tag"><i class="devicon-postgresql-plain colored"></i>PostgreSQL</span>
+            </div>
+            <a href="https://github.com/SalahKhazri" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+      </div>
+      <!-- Projet de Smart eCommerce Intelligence with ML&DM Pipelines, A2A Agents, and LLMs -->
+      <div class="project-card reveal" data-category="devops aiml">
+            <div class="project-thumb">
+                <img src="./assets/images/DM.png" alt="">
+            </div>
+            <div class="project-body">
+            <h3>Smart eCommerce Intelligence with ML&DM Pipelines, A2A Agents, and LLMs</h3>
+            <p>Ce projet consiste à développer une plateforme e-commerce intelligente basée sur le Machine Learning, le Data Mining, les agents A2A et les LLMs. Il permet d’analyser le comportement des utilisateurs, de recommander des produits de manière personnalisée et d’automatiser certaines tâches comme le support client ou la gestion des ventes. L’objectif est d’améliorer l’expérience utilisateur et d’optimiser les performances commerciales grâce à l’intelligence artificielle.</p>
+            <div class="tags" style="margin-bottom:16px">
+                <span class="tag"><i class="fas fa-spider" style="color:#ec4899"></i>Selenium</span>
+                <span class="tag"><i class="fas fa-spider" style="color:#ec4899"></i>Scrapy</span>
+                <span class="tag"><i class="fas fa-spider" style="color:#ec4899"></i>Playwright</span>
+                <span class="tag"><i class="devicon-scikitlearn-plain colored"></i>Scikit-learn</span>
+                <span class="tag"><i class="fas fa-chart-line" style="color:#ec4899"></i>XGBoost</span>
+                <span class="tag"><i class="fas fa-cogs" style="color:#10b981"></i>Kubeflow</span>
+                <span class="tag"><i class="devicon-kubernetes-plain colored"></i>Kubernetes</span>
+                <span class="tag"><i class="fab fa-docker" style="color:#2496ed"></i>Docker</span>
+                <span class="tag"><i class="fab fa-github" style="color:#6e5494"></i>GitHub Actions</span>
+                <span class="tag"><i class="fas fa-chart-bar" style="color:#10b981"></i>Kubeflow Pipelines</span>
+                <span class="tag"><i class="fas fa-chart-pie" style="color:#f59e0b"></i>Streamlit</span>
+                <span class="tag"><i class="fas fa-chart-simple" style="color:#f59e0b"></i>Power BI</span>
+                <span class="tag"><i class="fas fa-brain" style="color:#6366f1"></i>LangChain</span>
+                <span class="tag"><i class="fas fa-robot" style="color:#6366f1"></i>OpenAgents</span>
+                <span class="tag"><i class="fas fa-robot" style="color:#6366f1"></i>OpenAI GPT</span>
+                <span class="tag"><i class="fas fa-robot" style="color:#6366f1"></i>Claude</span>
+                <span class="tag"><i class="fas fa-robot" style="color:#6366f1"></i>LLaMA2</span>
+                <span class="tag"><i class="fas fa-robot" style="color:#6366f1"></i>HuggingFace</span>
+            </div>
+            <a href="https://github.com/SalahKhazri/Smart_eCommerce_Intelligence" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+      </div>
+      <!-- Projet SMA -->
+      <div class="project-card reveal" data-category="aiml">
+            <div class="project-thumb">
+                <img src="./assets/images/SMA.png" alt="">
+            </div>
+            <div class="project-body">
+            <h3>Allocation intelligente de ressources multi-agents</h3>
+            <p>Ce projet étudie un problème d’allocation de ressources dans un environnement distribué où plusieurs agents doivent réserver des places dans un ensemble de restaurants ayant des capacités et des probabilités de saturation différentes. Chaque agent adopte une stratégie de réservation (notamment un comportement glouton) afin de maximiser ses chances de succès, ce qui permet d’analyser les performances globales du système en fonction du nombre d’agents et de ressources disponibles. L’objectif est de modéliser, concevoir et évaluer un système multi-agents à l’aide de méthodologies de conception SMA et d’outils comme JADE, afin d’observer les comportements émergents et les coûts de coordination.</p>
+            <div class="tags" style="margin-bottom:16px">
+                <span class="tag"><i class="fab fa-java" style="color:#e11d48"></i>Java</span>
+                <span class="tag"><i class="fas fa-window-restore" style="color:#e11d48"></i>Swing</span>
+                <span class="tag"><i class="devicon-maven-original colored"></i>Maven</span>
+                <span class="tag"><i class="fas fa-robot" style="color:#6366f1"></i>JADE</span>
+            </div>
+            <a href="https://github.com/SalahKhazri/SMA-JADE" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+      </div>
+
+      <!-- Projet kali linux -->
+      <div class="project-card reveal" data-category="cybersec">
+            <div class="project-thumb">
+                <img src="./assets/images/OWASP.jpg" alt="">
+            </div>
+            <div class="project-body">
+            <h3>Sécurité des applications Web : vulnérabilités courantes et solutions</h3>
+            <p>Ce projet consiste à analyser et illustrer les principales vulnérabilités de sécurité des applications web, notamment les injections SQL/NoSQL, les failles XSS et CSRF, les problèmes d’authentification, ainsi que les mauvaises configurations de sécurité. Il met en évidence les risques associés à chaque attaque et leurs impacts possibles sur les systèmes et les données. L’objectif est de comprendre ces failles afin de mieux renforcer la sécurité des applications et adopter de bonnes pratiques de développement sécurisé.</p>
+            <div class="tags" style="margin-bottom:16px">
+                <span class="tag"><i class="fab fa-php" style="color:#e11d48"></i>PHP</span>
+                <span class="tag"><i class="fas fa-spider" style="color:#e11d48"></i>Kali linux</span>
+                <span class="tag"><i class="fas fa-spider" style="color:#e11d48"></i>OWASP BWA</span>
             </div>
             <a href="https://github.com/SalahKhazri" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
             </div>
       </div>
 
-        <div class="project-card reveal">
+      <!-- Projet SmartBudget -->
+      <div class="project-card reveal" data-category="mobile">
+            <div class="project-thumb">
+                <img src="./assets/images/Smart.jpg" alt="">
+            </div>
+            <div class="project-body">
+            <h3>SmartBudget – Application de gestion des dépenses personnelles</h3>
+            <p>SmartBudget est une application mobile conçue pour aider les utilisateurs à mieux gérer leurs finances quotidiennes en enregistrant et en organisant leurs dépenses. Elle permet d’ajouter, modifier et supprimer des dépenses, tout en les classant par catégories (alimentation, transport, santé, loisirs, etc.). L’application offre également des statistiques mensuelles pour suivre les habitudes de consommation et mieux contrôler le budget. Son objectif est de fournir une solution simple, intuitive et utilisable hors ligne pour améliorer la gestion financière personnelle.</p>
+            <div class="tags" style="margin-bottom:16px">
+                <span class="tag"><i class="devicon-kotlin-plain colored" style="color:#e11d48"></i>Kotlin</span>
+            </div>
+            <a href="https://github.com/SalahKhazri/SmartBudget" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+      </div>
+
+      <!-- Projet CampusEvent AI -->
+      <div class="project-card reveal" data-category="mobile">
+            <div class="project-thumb">
+                <img src="./assets/images/Flutter.png" alt="">
+            </div>
+            <div class="project-body">
+            <h3>CampusEvents AI – Application mobile intelligente de gestion d’événements</h3>
+            <p>CampusEvents AI est une application multiplateforme conçue pour centraliser la gestion des événements universitaires tels que les conférences, ateliers, formations et activités culturelles ou sportives. Elle intègre un assistant intelligent basé sur l’IA, capable de répondre aux requêtes des utilisateurs en langage naturel afin de faciliter la recherche et l’organisation d’événements. Le projet repose sur un backend performant avec FastAPI et une base de données SQLite, ainsi qu’un frontend moderne développé avec Flutter pour une expérience fluide sur mobile et web.</p>
+            <div class="tags" style="margin-bottom:16px">
+                <span class="tag"><i class="fas fa-bolt" style="color:#059669"></i>FastAPI</span>
+                <span class="tag"><i class="fas fa-database" style="color:#6366f1"></i>SQLAlchemy</span>
+                <span class="tag"><i class="devicon-flutter-plain colored"></i>Flutter</span>
+                <span class="tag"><i class="devicon-dart-plain colored"></i>Dart</span>
+                <span class="tag"><i class="fas fa-robot" style="color:#ec4899"></i>Ollama Llama3</span>
+                <span class="tag"><i class="fab fa-android" style="color:#3ddc84"></i>Android 14</span>
+            </div>
+            <a href="https://github.com/SalahKhazri/CampusEvents-AI" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+      </div>
+
+      <!-- Projet Big data -->
+      <div class="project-card reveal" data-category="bigdata">
+            <div class="project-thumb">
+                <img src="./assets/images/bigdata.png" alt="">
+            </div>
+            <div class="project-body">
+            <h3>Système de recommandaƟon de produits en temps réel</h3>
+            <p>Ce projet consiste à concevoir un système de recommandation de produits en temps réel basé sur une architecture Big Data et Streaming. Il exploite Apache Kafka pour la collecte des interactions utilisateurs, Apache Spark et l'algorithme ALS pour l'entraînement du modèle de recommandation, ainsi qu'Airflow pour l'orchestration du pipeline de données. Les recommandations sont générées en continu à partir des avis utilisateurs et exposées via une interface web interactive. L'objectif est de proposer des suggestions personnalisées et évolutives en s'appuyant sur le traitement de grands volumes de données en temps réel.</p>
+            <div class="tags" style="margin-bottom:16px">
+                <span class="tag"><i class="devicon-apachekafka-original colored"></i>Apache Kafka</span>
+                <span class="tag"><i class="devicon-apachespark-plain-wordmark colored"></i>Apache Spark</span>
+                <span class="tag"><i class="fas fa-cogs" style="color:#e11d48"></i>Spark MLlib</span>
+                <span class="tag"><i class="fas fa-chart-line" style="color:#e11d48"></i>ALS</span>
+                <span class="tag"><i class="fas fa-square-root-variable" style="color:#e11d48"></i>RMSE</span>
+                <span class="tag"><i class="devicon-apacheairflow-original colored"></i>Apache Airflow</span>
+                <span class="tag"><i class="fab fa-docker" style="color:#2496ed"></i>Docker</span>
+                <span class="tag"><i class="fab fa-docker" style="color:#2496ed"></i>Docker-compose</span>
+            </div>
+            <a href="https://github.com/SalahKhazri/BigDataProjet" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
+            </div>
+      </div>
+
+        <div class="project-card reveal" data-category="fullstack">
             <div class="project-thumb">
                 <img src="./assets/images/ourscrum.png" alt="">
             </div>
             <div class="project-body">
             <h3>OurScrum – Plateforme de gestion de projets Agile (Scrum) | Node.js & Express + React</h3>
-            <p>Développement d’une plateforme collaborative permettant la gestion complète d’un projet Agile : backlog, sprints et tableau Kanban interactif. Intégration d’analyses de performance (Velocity, Lead Time, Cycle Time) et d’un système de rétrospective d’équipe. Backend développé avec Node.js, Express et MySQL, avec authentification JWT sécurisée.</p>
+            <p>Développement d'une plateforme collaborative permettant la gestion complète d'un projet Agile : backlog, sprints et tableau Kanban interactif. Intégration d'analyses de performance (Velocity, Lead Time, Cycle Time) et d'un système de rétrospective d'équipe. Backend développé avec Node.js, Express et MySQL, avec authentification JWT sécurisée.</p>
             <div class="tags" style="margin-bottom:16px">
-                <span class="tag">Node.js</span>
-                <span class="tag">Express.js</span>
-                <span class="tag">React</span>
-                <span class="tag">Vite</span>
+                <span class="tag"><i class="fab fa-node-js" style="color:#339933"></i>Node.js</span>
+                <span class="tag"><i class="devicon-express-original colored"></i>Express.js</span>
+                <span class="tag"><i class="fab fa-react" style="color:#61dafb"></i>React</span>
+                <span class="tag"><i class="fab fa-vuejs" style="color:#4fc08d"></i>Vite</span>
             </div>
             <a href="https://github.com/SalahKhazri" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
             </div>
       </div>
 
-      <div class="project-card reveal">
+      <div class="project-card reveal" data-category="fullstack">
             <div class="project-thumb">
                 <img src="./assets/images/CRM.png" alt="">
             </div>
             <div class="project-body">
             <h3>Développeur et réalisation d'un CRM | React & Django</h3>
-            <p>Développement d’un CRM pour une agence immobilière utilisant React et Django, permettant la gestion des leads, des biens, des utilisateurs et des rendez-vous via une API REST sécurisée. L’application offre une interface moderne, des formulaires dynamiques et un système d’affectation des commerciaux pour optimiser le suivi commercial.</p>
+            <p>Développement d'un CRM pour une agence immobilière utilisant React et Django, permettant la gestion des leads, des biens, des utilisateurs et des rendez-vous via une API REST sécurisée. L'application offre une interface moderne, des formulaires dynamiques et un système d'affectation des commerciaux pour optimiser le suivi commercial.</p>
             <div class="tags" style="margin-bottom:16px">
-                <span class="tag">React</span>
-                <span class="tag">Redux</span>
-                <span class="tag">Django</span>
-                <span class="tag">Django Rest Framework</span>
-                <span class="tag">Particles.js</span>
-                <span class="tag">MySQL</span>
-                <span class="tag">Vercel</span>
-                <span class="tag">Railway</span>
-                <span class="tag">CPanel</span>
+                <span class="tag"><i class="fab fa-react" style="color:#61dafb"></i>React</span>
+                <span class="tag"><i class="devicon-redux-original colored"></i>Redux</span>
+                <span class="tag"><i class="devicon-django-plain colored"></i>Django</span>
+                <span class="tag"><i class="devicon-djangorest-plain colored"></i>Django Rest Framework</span>
+                <span class="tag"><i class="fas fa-atom" style="color:#6366f1"></i>Particles.js</span>
+                <span class="tag"><i class="devicon-mysql-plain colored"></i>MySQL</span>
+                <span class="tag"><i class="fas fa-cloud" style="color:#6366f1"></i>Vercel</span>
+                <span class="tag"><i class="fas fa-train" style="color:#6366f1"></i>Railway</span>
+                <span class="tag"><i class="fas fa-cpanel" style="color:#ff6600"></i>CPanel</span>
             </div>
             <a href="https://github.com/SalahKhazri" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
             </div>
@@ -831,33 +1140,33 @@ proposés. </p>
 
 
         
-    <div class="project-card reveal">
+    <div class="project-card reveal" data-category="fullstack">
         <div class="project-thumb">
           <img src="./assets/images/foodie.png" alt="">
         </div>
         <div class="project-body">
           <h3>Gestion de restaurant | Symfony</h3>
-          <p>Développement d'une application web avec Symfony pour la gestion complète d’un restaurant. Cette solution digitale permet d’administrer les réservations, les plats, les tables, les commandes, les utilisateurs ainsi que les offres promotionnelles. Elle offre une interface intuitive pour faciliter la gestion quotidienne du restaurant, améliorer l’expérience client et optimiser l’organisation interne.</p>
+          <p>Développement d'une application web avec Symfony pour la gestion complète d'un restaurant. Cette solution digitale permet d'administrer les réservations, les plats, les tables, les commandes, les utilisateurs ainsi que les offres promotionnelles. Elle offre une interface intuitive pour faciliter la gestion quotidienne du restaurant, améliorer l'expérience client et optimiser l'organisation interne.</p>
           <div class="tags" style="margin-bottom:16px">
-            <span class="tag">Symfony</span>
-            <span class="tag">Twig</span>
-            <span class="tag">Doctrine</span>
+            <span class="tag"><i class="devicon-symfony-original colored"></i>Symfony</span>
+            <span class="tag"><i class="devicon-twig-original colored"></i>Twig</span>
+            <span class="tag"><i class="devicon-doctrine-plain colored"></i>Doctrine</span>
           </div>
           <a href="https://github.com/SalahKhazri" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
 
-      <div class="project-card reveal">
+      <div class="project-card reveal" data-category="fullstack">
         <div class="project-thumb" >
           <img src="./assets/images/gestion_projet.png" alt="">
         </div>
         <div class="project-body">
           <h3>Gestion de projet | PHP POO</h3>
-          <p>Site web de gestion de projets pour suivre les tâches et optimiser la collaboration.</p>
+          <p>Ce projet est une application web de gestion de projets développée en PHP orienté objet (POO). Il permet de créer des projets, d’organiser les tâches et de suivre leur avancement. L’objectif est de faciliter la collaboration entre les membres d’une équipe et d’améliorer la gestion et le suivi des travaux.</p>
           <div class="tags" style="margin-bottom:16px">
-            <span class="tag">PHP POO</span>
-            <span class="tag">MySQL</span>
-            <span class="tag">Bootstrap</span>
+            <span class="tag"><i class="fab fa-php" style="color:#777bb4"></i>PHP POO</span>
+            <span class="tag"><i class="devicon-mysql-plain colored"></i>MySQL</span>
+            <span class="tag"><i class="devicon-bootstrap-plain colored"></i>Bootstrap</span>
           </div>
           <a href="https://github.com/SalahKhazri" class="project-link">Voir plus <i class="fas fa-arrow-right"></i></a>
         </div>
@@ -964,6 +1273,21 @@ proposés. </p>
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ── PROJECT FILTER ── */
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.getAttribute('data-filter');
+      projectCards.forEach(card => {
+        const cats = (card.getAttribute('data-category') || '').split(' ');
+        card.style.display = filter === 'all' || cats.includes(filter) ? '' : 'none';
+      });
+    });
+  });
 
   /* ── SKILL BARS ── */
   const barObserver = new IntersectionObserver(entries => {
